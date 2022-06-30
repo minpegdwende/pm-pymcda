@@ -38,13 +38,13 @@ It is recommanded to use a Linux environment.
 8. Inside the project package (`cd pm-pymcda`), execute the following commands : 
     - `pip install --user pipenv`
     - `python -m site --user-base` or `python3.7 -m site --user-base`
-    - `PATH=$PATH:/home/*username*/.local/bin`
+    - `PATH=$PATH:/home/*username*/.local/bin:/home/*username*/IBM/cplex`
     - `source ~/.profile`
     - `pipenv install requests`
     - `pipenv install -r requirements.txt`
     - `pipenv lock --clear`
     - `pipenv install --skip-lock`
-9. Your environment is properly set when executing `pipenv shell` will create the environment where the code can be executed.
+9. Your environment is properly set when `pipenv graph` shows all the connected libraries and when executing `pipenv shell` creates the environment where the code can be executed.
 10. Execute the baseline example of the use of learning algorithms : for instance for META, execute `python apps/meta.py` . Look at the results in `pm-pymcda/results_meta`.
 
 
