@@ -51,25 +51,25 @@ It is recommanded to use a Linux environment.
 # Package description
 
 The package project is composed of 5 directories and 3 files at the root : 
-* the readme file,
-* the file "setup.py" gives information on the authors (name, reference, ...), the tool info (version, license, packages, ...) : it is called during the installation procedure.
-* the requirement.txt file which contains all the libraries and packages needed to execute the algorithms.
-* pymcda : which contains contains back seat methods/algorithm and the definitions of elementary objects, particularly MR-Sort objects (defined in the types.py) 
-    * \_\_init\_\_.py : which defines the module pymcda.
-    * electre_tri.py : it mainly contains the definition of an MR-Sort, MCDA classes and their appropriate methods that are called during the creation of new models.
-    * generate.py : it some contains functions useful for the generation of random instances and values (models, weights, profiles, etc ...).
-    * pt_sorted.py : it is contains an adhoc class for the treatment of performance tables while maintaining an order in the evaluations.
-    * types.py : it is contains the definitions of MCDA concepts as objects (criteria, alternatives, categories, etc ...).
-    * utils.py : it is contains short methods essentially useful for the generation of noise in the learning set.
-    * learning : a directory that contain core elements of algorithms pertaining to the learning process
-        * meta_mrsort.py (resp. meta_mrsort_sp.py the equivalent which deals with single-peaked criteria) : encompasses the global structure of the metaheuristic (handling the population of model via a multithreading process, optimization of weights and profiles, iterative process and stopping conditions/fitness)
-        * lp_mrsort_weights_meta.py (resp. lp_mrsort_weights_meta_sp.py the equivalent which deals with single-peaked criteria) : this is dedicated to the construction and resolution of the Linear Program in order to optimize weights and thresholds during the learning process.
-        * heur_mrsort_profiles_meta.py (resp. heur_mrsort_profiles_meta_sp.py the equivalent which deals with single-peaked criteria) : this is dedicated to the initialization and update of profiles (through the choice of random and promising moves of the profiles) during the learning process.
-        * mip_mrsort_sp.py : it is contains the complete formulation of the MIP and its resolution through CPLEX solver for the learning of MR-Sort parameters with potentially single-peaked criteria.
-* apps : which contains essentially the implementation of the three learning algorithms.
-* meta.py : the file that describes the META algorithm. It contains a class RandMRSortMetaLearning whose object is a test instance for the problem of learning MR-Sort models using an metaheuristic, from random assignment examples without knowing in advance the preference directions of criteria.
-* meta_sp.py : the file that describes the META-SP algorithm. It contains a class RandMRSortMetaSPLearning whose object is a test instance for the problem of learning MR-Sort models with potentially single-peaked criteria using an metaheuristic, from random assignment examples.
-* mip_sp.py : the file that describes the MIP-SP algorithm. It contains a class RandMRSortMIPSPLearning whose object is a test instance for the problem of learning MR-Sort models with potentially single-peaked criteria using a MIP formulation, from random assignment examples.
+* `readme.md`, the read-me file,
+* the file `setup.py` gives information on the authors (name, reference, ...), the tool info (version, license, packages, ...) : it is called during the installation procedure.
+* the `requirement.txt` file which contains all the libraries and packages needed to execute the algorithms.
+* `pymcda` : which contains contains back seat methods/algorithm and the definitions of elementary objects, particularly MR-Sort objects (defined in the `types.py`) 
+    * `\_\_init\_\_.py` : which defines the module pymcda.
+    * `electre_tri.py` : it mainly contains the definition of an MR-Sort, MCDA classes and their appropriate methods that are called during the creation of new models.
+    * `generate.py` : it some contains functions useful for the generation of random instances and values (models, weights, profiles, etc ...).
+    * `pt_sorted.py` : it is contains an adhoc class for the treatment of performance tables while maintaining an order in the evaluations.
+    * `types.py` : it is contains the definitions of MCDA concepts as objects (criteria, alternatives, categories, etc ...).
+    * `utils.py` : it is contains short methods essentially useful for the generation of noise in the learning set.
+    * `learning` : a directory that contain core elements of algorithms pertaining to the learning process
+        * `meta_mrsort.py` (resp. `meta_mrsort_sp.py` the equivalent which deals with single-peaked criteria) : encompasses the global structure of the metaheuristic (handling the population of model via a multithreading process, optimization of weights and profiles, iterative process and stopping conditions/fitness)
+        * `lp_mrsort_weights_meta.py` (resp. `lp_mrsort_weights_meta_sp.py` the equivalent which deals with single-peaked criteria) : this is dedicated to the construction and resolution of the Linear Program in order to optimize weights and thresholds during the learning process.
+        * `heur_mrsort_profiles_meta.py` (resp. `heur_mrsort_profiles_meta_sp.py` the equivalent which deals with single-peaked criteria) : this is dedicated to the initialization and update of profiles (through the choice of random and promising moves of the profiles) during the learning process.
+        * `mip_mrsort_sp.py` : it is contains the complete formulation of the MIP and its resolution through CPLEX solver for the learning of MR-Sort parameters with potentially single-peaked criteria.
+* `apps` : which contains essentially the implementation of the three learning algorithms.
+* `meta.py` : the file that describes the META algorithm. It contains a class `RandMRSortMetaLearning` whose object is a test instance for the problem of learning MR-Sort models using an metaheuristic, from random assignment examples without knowing in advance the preference directions of criteria.
+* `meta_sp.py` : the file that describes the META-SP algorithm. It contains a class `RandMRSortMetaSPLearning` whose object is a test instance for the problem of learning MR-Sort models with potentially single-peaked criteria using an metaheuristic, from random assignment examples.
+* `mip_sp.py` : the file that describes the MIP-SP algorithm. It contains a class `RandMRSortMIPSPLearning` whose object is a test instance for the problem of learning MR-Sort models with potentially single-peaked criteria using a MIP formulation, from random assignment examples.
 
 
 
@@ -84,9 +84,9 @@ In this part, the problem/test parameters, as well as the parameters of the algo
 A variable "inst" is defined as a instance of test.
 Finally such instance is executed by learning new models through the algorithm (META, META-SP, MIP-SP), and performing a generalization phase.
 The results of these procedures are summarized into three kind of files :
-- instance_YYY-XXX.csv : details of the performance table for one instance (only if the number of trials 'nb_models' is 1)
-- random_tests_details_YYY-XXX.csv : details of the execution of each trial  (original and learned models, performances/metrics)
-- summary_results_YYY-XXX.csv : recap of the results (execution time, classification accuracy (learning and test), preference direction restoration)
+- `instance_YYY-XXX.csv` : details of the performance table for one instance (only if the number of trials 'nb_models' is 1)
+- `random_tests_details_YYY-XXX.csv` : details of the execution of each trial  (original and learned models, performances/metrics)
+- `summary_results_YYY-XXX.csv` : recap of the results (execution time, classification accuracy (learning and test), preference direction restoration)
 YYY denotes the type of algorithm (META, META-SP, MIP-SP), and XXX an identification number based on timestamp and/or details of the parameters of the test/problem.
 
 
@@ -94,13 +94,13 @@ YYY denotes the type of algorithm (META, META-SP, MIP-SP), and XXX an identifica
 
 The file to execute the metaheuristic that consists to learn the parameters of an MR-Sort model from assignment examples.
 The algorithm assumes that the preference directions of criteria are unknown. 
-Thus, it also infers the preference directions of unknown ones ('l_dupl_criteria').
+Thus, it also infers the preference directions of unknown ones (`l_dupl_criteria`).
 
 ## MIP-SP : mip_sp.py
 
 The file to execute the mixed integer programming algorithm (using CPLEX) to infer the parameters of an MR-Sort model with single-peaked/single-valley criteria from assignment examples
 The algorithm deals with both cases : known and unknown preference directions of criteria.
-Thus, it also infers the preference directions of unknown ones ('l_unk_pref_dirs').
+Thus, it also infers the preference directions of unknown ones (`l_unk_pref_dirs`).
 Tests are limited to 2 categories.
 
 ## META-SP : meta_sp.py
@@ -112,7 +112,7 @@ Tests are limited to 2 categories.
 
 # Tips
 
-For debugging purposes, use the following line code which stops the execution of the code at that line (see https://docs.python.org/3/library/pdb.html):
-import pdb; pdb.set_trace().
+For debugging purposes, use the following piece of code which stops the execution of the code at that line (see https://docs.python.org/3/library/pdb.html):
+`import pdb; pdb.set_trace()`.
 In order to run a serie of tests, it is possible to construct an adhoc loop where in each iteration, a set of problem/test/algorithm parameters is defined and the global variable DATADIR is updated (for instance by incrementing the name number of the folder) in order to get organized results.
 
