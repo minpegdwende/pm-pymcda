@@ -1,10 +1,10 @@
-# Introdution
+# Introduction
 
 This code is inspired by the github code of Olivier Sobrie (oso-pymcda => https://github.com/oso/pymcda). 
 The latter proposes several methods to solve MCDA models inference problems (inferring MCDA models parameters from assignment examples).
 Particularly, it proposes some metaheuristics and MIP algorithms to learn MR-Sort parameters considering monotone criteria (gain criteria).
 This present code extends oso-pymcda in two ways.
-It describes algorithms (metaheuristics and MIP formulation) to infer MR-Sort parameters first with single-peaked/single-valley criteria (a case of non monotone criteria), and second with potentially unknown criteria preference direction)
+It describes algorithms (metaheuristics and MIP formulation) to infer MR-Sort parameters first with single-peaked/single-valley criteria (a case of non monotone criteria), and secondly with potentially unknown criteria preference direction.
 This code is made of 3 algorithms : 
 - META : a metaheuristic to learn MR-Sort parameters from monotone criteria but unknown criteria preference direction (for more details, see https://hal.archives-ouvertes.fr/hal-03102714).
 - MIP-SP : a Mixed Integer Programming formulation to learn MR-Sort parameters with single-peaked criteria (for more details, see https://arxiv.org/abs/2107.09668)
@@ -15,25 +15,37 @@ This code is made of 3 algorithms :
 # Installation
 
 It is recommanded to use a Linux environment.
-1. This code was implemented in Python 3.7. Please check if you have the right version with this command on a terminal : python --version . If not, you can download this version on https://www.python.org/downloads/.
-Later on, in order to force the use of Python 3 by using an alias.
-2. Install pip. It can be necessary to installl python3.7-distutils before.
-3. Download CPLEX Optimization Studio. Go to https://www.ibm.com/products/ilog-cplex-optimization-studio (choose the student/teacher free edition) and follow the steps until the download of the "ILOG CPLEX Optimization Studio" following your operating system. The CPLEX version used in this notebook is 12.9. You may have to create a IBMid account.
-4. Execute the .bin file to install the CPLEX repertory. Open also the ReadMe file in the python directory of the CPLEX directory. Execute this command line on the terminal : `pip install docplex`, then execute : `python setup.py install`.
-5. Set the environment variable PYTHONPATH on the terminal so that it may contains the absolute path to "cplex" directory and python. Here is an example : `export PYTHONPATH=$PYTHONPATH:/home/IBM/cplex/python:/home/IBM/cplex/python/3.7/x86-64_linux`
-6. Enter into the project packadge (`cd pm-pymcda`).
-7/ Execute the following commands : 
+1. This code was implemented in Python 3.7. Please check if you have the right version with this command on a terminal : python --version . If not, you can execute the following commands :
+    - `sudo apt update`
+    - `sudo apt upgrade`
+    - `sudo add-apt-repository ppa:deadsnakes/ppa`
+    - `sudo apt-get update`
+    - `sudo apt-get install python3.7`
+    - Open the  `~/.bashrc` file and write the following line at the end of the file: `alias python=python3.7`. Then execute `source ~/.bashrc`. It must force python3.7 to be called in the place of python.
+2. Install pip. It can be necessary to installl python3.7-distutils before. Execute the following commands :
+    - `sudo apt install python-pip`
+    - `sudo apt install python3-pip`
+    - `sudo apt-get install python3-distutils`
+    - `sudo apt-get install python-distutils`
+    - `sudo apt-get install python3.7-distutils`
+    - `sudo apt-get update`
+4. Download CPLEX Optimization Studio. Go to https://www.ibm.com/products/ilog-cplex-optimization-studio (choose the student/teacher free edition) and follow the steps until the download of the "ILOG CPLEX Optimization Studio" following your operating system. The CPLEX version used in this notebook is 12.9. You may have to create a IBMid account. The executable for Linux has the form of `cplex_studioXXX.bin`. Create a repertory called IBM in your home repertory. Copy `cplex_studioXXX.bin` into it. You may have to be granted permissions to execute `cplex_studioXXX.bin`, so execute `sudo chmod 777 cplex_studioXXX.bin`, then `./cplex_studioXXX.bin`. During the CPLEX installation, indicate the repository `/IBM` has the location of the source code of CPLEX.
+5. Now, execute the following commands inside `/IBM/cplex/python/..` : 
+    - `pip install docplex`
+    - `sudo chmod 777 /usr/local/lib/python3.7/dist-packages`
+    - `python setup.py install` or `python3.7 setup.py install`
+7. Set the environment variable PYTHONPATH on the terminal so that it may contains the absolute path to "cplex" directory and python. Here is an example : `export PYTHONPATH=$PYTHONPATH:/home/IBM/cplex/python:/home/IBM/cplex/python/3.7/x86-64_linux`
+8. Inside the project package (`cd pm-pymcda`), execute the following commands : 
     - `pip install --user pipenv`
-    - pip install --user pipenv
-    - python -m site --user-base
-    - PATH=$PATH:/home/username/.local/bin
-    - source ~/.profile
-    - pipenv install requests
-    - pipenv install -r requirements.txt
-    - pipenv lock --clear
-    - pipenv install --skip-lock
-8. Your environment is properly set when executing `pipenv shell` will create the environment where the code can be executed.
-9. Execute the baseline example of the use of learning algorithms : for instance for META, execute `python apps/meta.py` . Look at the results in `pm-pymcda/results_meta`.
+    - `python -m site --user-base` or `python3.7 -m site --user-base`
+    - `PATH=$PATH:/home/*username*/.local/bin`
+    - `source ~/.profile`
+    - `pipenv install requests`
+    - `pipenv install -r requirements.txt`
+    - `pipenv lock --clear`
+    - `pipenv install --skip-lock`
+9. Your environment is properly set when executing `pipenv shell` will create the environment where the code can be executed.
+10. Execute the baseline example of the use of learning algorithms : for instance for META, execute `python apps/meta.py` . Look at the results in `pm-pymcda/results_meta`.
 
 
 # Package description
@@ -55,9 +67,9 @@ The package project is composed of 5 directories and 3 files at the root :
         * heur_mrsort_profiles_meta.py (resp. heur_mrsort_profiles_meta_sp.py the equivalent which deals with single-peaked criteria) : this is dedicated to the initialization and update of profiles (through the choice of random and promising moves of the profiles) during the learning process.
         * mip_mrsort_sp.py : it is contains the complete formulation of the MIP and its resolution through CPLEX solver for the learning of MR-Sort parameters with potentially single-peaked criteria.
 * apps : which contains essentially the implementation of the three learning algorithms.
-    * meta.py : the file that describes the META algorithm. It contains a class RandMRSortMetaLearning whose object is a test instance for the problem of learning MR-Sort models using an metaheuristic, from random assignment examples without knowing in advance the preference directions of criteria.
-    * meta_sp.py : the file that describes the META-SP algorithm. It contains a class RandMRSortMetaSPLearning whose object is a test instance for the problem of learning MR-Sort models with potentially single-peaked criteria using an metaheuristic, from random assignment examples.
-    * mip_sp.py : the file that describes the MIP-SP algorithm. It contains a class RandMRSortMIPSPLearning whose object is a test instance for the problem of learning MR-Sort models with potentially single-peaked criteria using a MIP formulation, from random assignment examples.
+* meta.py : the file that describes the META algorithm. It contains a class RandMRSortMetaLearning whose object is a test instance for the problem of learning MR-Sort models using an metaheuristic, from random assignment examples without knowing in advance the preference directions of criteria.
+* meta_sp.py : the file that describes the META-SP algorithm. It contains a class RandMRSortMetaSPLearning whose object is a test instance for the problem of learning MR-Sort models with potentially single-peaked criteria using an metaheuristic, from random assignment examples.
+* mip_sp.py : the file that describes the MIP-SP algorithm. It contains a class RandMRSortMIPSPLearning whose object is a test instance for the problem of learning MR-Sort models with potentially single-peaked criteria using a MIP formulation, from random assignment examples.
 
 
 
