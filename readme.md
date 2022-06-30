@@ -55,7 +55,7 @@ The package project is composed of 5 directories and 3 files at the root :
 * the file `setup.py` gives information on the authors (name, reference, ...), the tool info (version, license, packages, ...) : it is called during the installation procedure.
 * the `requirement.txt` file which contains all the libraries and packages needed to execute the algorithms.
 * `pymcda` : which contains contains back seat methods/algorithm and the definitions of elementary objects, particularly MR-Sort objects (defined in the `types.py`) 
-    * `\_\_init\_\_.py` : which defines the module pymcda.
+    * `__init__.py` : which defines the module pymcda.
     * `electre_tri.py` : it mainly contains the definition of an MR-Sort, MCDA classes and their appropriate methods that are called during the creation of new models.
     * `generate.py` : it some contains functions useful for the generation of random instances and values (models, weights, profiles, etc ...).
     * `pt_sorted.py` : it is contains an adhoc class for the treatment of performance tables while maintaining an order in the evaluations.
