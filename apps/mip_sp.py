@@ -20,7 +20,7 @@ from copy import deepcopy
 
 
 # Global variable DATADIR that contains the absolute path to the results directory named 'results-mip-sp' located inside the project
-DATADIR = os.getenv('DATADIR', '/Users/pegdwendestephaneminoungou/python_workspace/Spyder/pm-pymcda/results-mip-sp')
+DATADIR = os.getenv('DATADIR', os.path.abspath('.') + 'results-mip-sp')
 
 
 class RandMRSortMIPSPLearning():

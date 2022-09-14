@@ -19,7 +19,7 @@ from pymcda.utils import  add_errors_in_assignments
 from copy import deepcopy
 
 # Global variable DATADIR that contains the absolute path to the results directory named 'results-meta' located inside the project
-DATADIR = os.getenv('DATADIR', '/Users/pegdwendestephaneminoungou/python_workspace/Spyder/pm-pymcda/results-meta')
+DATADIR = os.getenv('DATADIR', os.path.abspath('.') + 'results-meta')
 
 
 class RandMRSortMetaLearning():

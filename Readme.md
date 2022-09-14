@@ -21,30 +21,22 @@ It is recommanded to use a Linux environment.
     - `sudo add-apt-repository ppa:deadsnakes/ppa`
     - `sudo apt-get update`
     - `sudo apt-get install python3.7`
-    - Open the  `~/.bashrc` file and write the following line at the end of the file: `alias python=python3.7`. Then execute `source ~/.bashrc`. It must force python3.7 to be called in the place of python.
+    - Open the  `~/.bashrc` file and write the following lines at the end of the file: `alias python=python3.7` and `alias python3=python3.7`. Then execute `source ~/.bashrc`. It must force python3.7 to be called in the place of python.
 2. Install pip. It can be necessary to installl python3.7-distutils before. Execute the following commands :
-    - `sudo apt install python-pip`
     - `sudo apt install python3-pip`
     - `sudo apt-get install python3-distutils`
-    - `sudo apt-get install python-distutils`
     - `sudo apt-get install python3.7-distutils`
     - `sudo apt-get update`
 4. Download CPLEX Optimization Studio. Go to https://www.ibm.com/products/ilog-cplex-optimization-studio (choose the student/teacher free edition) and follow the steps until the download of the "ILOG CPLEX Optimization Studio" following your operating system. The CPLEX version used in this notebook is 12.9. You may have to create a IBMid account. The executable for Linux has the form of `cplex_studioXXX.bin`. Create a repertory called IBM in your home repertory. Copy `cplex_studioXXX.bin` into it. You may have to be granted permissions to execute `cplex_studioXXX.bin`, so execute `sudo chmod 777 cplex_studioXXX.bin`, then `./cplex_studioXXX.bin`. During the CPLEX installation, indicate the repository `/IBM` has the location of the source code of CPLEX.
-5. Now, execute the following commands inside `/IBM/cplex/python/..` : 
+5. Now, execute the following commands inside `/IBM/cplex/python/..`, where is located the file `setup.py` : 
     - `pip install docplex`
     - `sudo chmod 777 /usr/local/lib/python3.7/dist-packages`
-    - `python setup.py install` or `python3.7 setup.py install`
-7. Set the environment variable PYTHONPATH on the terminal so that it may contains the absolute path to "cplex" directory and python. Here is an example : `export PYTHONPATH=$PYTHONPATH:/home/IBM/cplex/python:/home/IBM/cplex/python/3.7/x86-64_linux`
+    - `python3.7 setup.py install`
+7. Set the environment variable PYTHONPATH on the terminal so that it may contains the absolute path to "IBM/cplex/python". Here is an example : `export PYTHONPATH=$PYTHONPATH:/home/IBM/cplex/python`
 8. Inside the project package (`cd pm-pymcda`), execute the following commands : 
-    - `pip install --user pipenv`
-    - `python -m site --user-base` or `python3.7 -m site --user-base`
-    - `PATH=$PATH:/home/*username*/.local/bin:/home/*username*/IBM/cplex`
+    - Add to the PATH variable, the absolute path to "IBM/cplex" (for example,`PATH=$PATH:/home/IBM/cplex`)
     - `source ~/.profile`
-    - `pipenv install requests`
-    - `pipenv install -r requirements.txt`
-    - `pipenv lock --clear`
-    - `pipenv install --skip-lock`
-9. Your environment is properly set when `pipenv graph` shows all the connected libraries and when executing `pipenv shell` creates the environment where the code can be executed.
+9. Install `numpy` library with this command : `python -m pip install numpy` .
 10. Execute the baseline example of the use of learning algorithms : for instance for META, execute `python apps/meta.py` . Look at the results in `pm-pymcda/results_meta`.
 
 
